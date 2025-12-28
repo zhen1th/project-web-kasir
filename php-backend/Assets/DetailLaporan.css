@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+table.tabel-laporan {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.tabel-laporan thead {
+    background-color: #f2f2f2;
+}
+
+.tabel-laporan th,
+.tabel-laporan td {
+    padding: 14px 16px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.tabel-laporan th {
+    font-weight: bold;
+    color: #333;
+}
+
+.tabel-laporan tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.hapus-btn {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.2s ease-in-out;
+}
+
+.hapus-btn:hover {
+    background-color: #c0392b;
+}

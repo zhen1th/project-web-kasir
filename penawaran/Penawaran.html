@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dompo$</title>
+
+    <!-- CSS -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: sans-serif;
+      }
+
+      .Atas {
+        background-color: #2c2c2c;
+        height: 10vh;
+        width: 100%;
+      }
+
+      .Text-Atas {
+        text-align: right;
+        color: white;
+        padding: 20px;
+      }
+
+      .Logo-Text {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 20px;
+      }
+
+      .Tengah {
+        text-align: center;
+        margin-top: 30px;
+        font-size: large;
+      }
+
+      .kotakgambar {
+        margin-top: 80px;
+        background-color: #2c2c2c;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .img-box {
+        width: 399px;
+        height: 267px;
+        margin: 20px;
+      }
+
+      .img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        border-radius: 8px;
+        /*  /* Transform : dipakai untuk memperbesar gambar sedikit zoom  */
+        /* Filter : digunakan untuk mencerahkan gambar saat hover ( atau mouse masuk kedalam objek ) */
+        /* 0.3s ease : berjalan pelan selama 0,3 detik  */
+      }
+
+      .img-box img:hover {
+        transform: scale(1.03);
+        filter: brightness(1.05);
+        /* scale 1.03 : memperbesar (3%) gambar ketika hover efek ini membuat gambar terangkat dikit  */
+        /* brightness : memberikan efek highlight atau menyorot sesuatu yang dapat di klik */
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      a:hover {
+        background-color: white;
+        color: #2c2c2c;
+      }
+    </style>
+
+    <!-- FAV ICON -->
+    <link
+      href="Assets/Dompo$Hitam.png"
+      rel="icon"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      href="Assets/Dompo$Putih.png"
+      rel="icon"
+      media="(prefers-color-scheme: dark)"
+    />
+  </head>
+  <body>
+    <div class="Logo-Text">
+      <h3>Dompo$</h3>
+    </div>
+
+    <div class="Atas">
+      <div class="Text-Atas">
+        <a href="https://wa.me/6289694323148">Contact Admin</a>
+      </div>
+    </div>
+
+    <div class="Tengah">
+      <img src="assets/DOMPO$.png" width="500" height="450" alt="Dompo Logo" />
+      <h2>FITUR YANG KAMI TAWARKAN</h2>
+      <p>
+        Disini Kita Menawarkan Beberapa Fitur Yang Membantu Dan Mempermudah
+        Dalam Mengelola Keuangan Anda
+      </p>
+
+      <div class="kotakgambar">
+        <div class="img-box">
+          <a href="https://shopee.co.id/">
+            <img src="Assets/LaporanAnalitik.png" alt="Laporan Analitik" />
+          </a>
+        </div>
+
+        <div class="img-box">
+          <a href="https://shopee.co.id/">
+            <img src="Assets/TransaksiKasir.png" alt="Transaksi Kasir" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

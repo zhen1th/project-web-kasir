@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Dompo$</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-box {
+      background-color: #000;
+      color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .register-box h2 {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .register-box input[type="text"],
+    .register-box input[type="password"],
+    .register-box input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #1e1e1e;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .register-box input::placeholder {
+      color: #aaa;
+    }
+
+    .register-box p {
+      font-size: 12px;
+      margin-top: 10px;
+      text-align: left;
+      color: #aaa;
+    }
+
+    .register-box a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .register-box button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      width: 100%;
+      border: none;
+      background-color: #fff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .register-box button:hover {
+      background-color: #e5e5e5;
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      background-color: rgba(255, 107, 107, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .password-hint {
+      font-size: 11px;
+      color: #aaa;
+      text-align: left;
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-box">
+    <h2>Dompo$</h2>
+    
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+    
+    <form action="/register" method="POST">
+      <input type="hidden" name="action" value="<%= otpSent ? 'verify' : 'sendOtp' %>"/>
+
+      <div>
+        <input 
+          type="text" 
+          name="username" 
+          placeholder="Username" 
+          required 
+          value="<%= formData.username || '' %>" 
+          <%= otpSent ? 'readonly' : '' %>
+        />
+      </div>
+
+      <div>
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+          required 
+          value="<%= formData.email || '' %>" 
+          <%= otpSent ? 'readonly' : '' %>
+        />
+      </div>
+
+      <div>
+        <input 
+          type="text" 
+          name="phone" 
+          placeholder="Nomor HP" 
+          required 
+          value="<%= formData.phone || '' %>" 
+          <%= otpSent ? 'readonly' : '' %>
+        />
+      </div>
+
+      <div>
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+          required 
+          <%= otpSent ? 'readonly' : '' %>
+        />
+        <% if (!otpSent) { %>
+          <p class="password-hint">Password harus 8-20 karakter, mengandung huruf besar, angka, dan simbol</p>
+        <% } %>
+      </div>
+
+      <% if (otpSent) { %>
+        <div>
+          <input 
+            type="text" 
+            name="otp" 
+            placeholder="Masukkan Kode OTP" 
+            required 
+          />
+          <p class="password-hint">Kode OTP telah dikirim ke email Anda</p>
+        </div>
+      <% } %>
+
+      <button type="submit">
+        <%= otpSent ? 'VERIFIKASI OTP' : 'KIRIM KODE OTP' %>
+      </button>
+    </form>
+
+    <a href="/login" class="back-link">← Kembali ke Halaman Login</a>
+  </div>
+
+</body>
+</html>

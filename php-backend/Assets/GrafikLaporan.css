@@ -1,0 +1,104 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px; 
+    margin: auto;
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #2c2c2c;
+    padding-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #2c2c2c  ;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.tabel-laporan {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px; 
+}
+
+.tabel-laporan thead {
+    background-color: #2c2c2c;
+    color: white;
+}
+
+.tabel-laporan th,
+.tabel-laporan td {
+    text-align: left;
+    padding: 6px 8px; 
+    border-bottom: 1px solid #ddd;
+}
+
+.tabel-laporan tr:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-btn {
+    background-color: #2c2c2c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px; 
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background-color: #2c2c2c;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color:black;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c2c2c; /* Warna latar belakang */
+    padding: 10px 20px; /* Spasi dalam elemen */
+    border-radius: 5px;
+}
+
+.topbar a {
+    text-decoration: none;
+    color: white; /* Warna teks */
+    background-color: #6c757d; /* Warna tombol */
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.topbar a:hover {
+    background-color: #495057; /* Warna tombol saat hover */
+}
