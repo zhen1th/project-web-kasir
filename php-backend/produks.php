@@ -36,8 +36,8 @@ else if (!empty($_GET['token'])) {
 }
 // Jika tidak ada session dan tidak ada token
 else {
-    // Redirect ke login
-    header('Location: http://localhost:3000/login?redirect=' . basename($_SERVER['PHP_SELF']));
+    // Redirect ke login dengan parameter redirect ke Dashboard.php
+    header('Location: http://localhost:3000/login?redirect=Dashboard.php');
     exit;
 }
 
@@ -82,187 +82,185 @@ if (isset($_GET['kode'])) {
     <title>Data Produk Toko Anda</title>
 
     <!-- FAVICON -->
-    <link href="Assets/Dompo$Hitam.png" rel="icon"
-        media="(prefers-color-scheme: light)" />
+    <link href="Assets/Dompo$Hitam.png" rel="icon" media="(prefers-color-scheme: light)" />
 
-    <link href="Assets/Dompo$Putih.png" rel="icon"
-        media="(prefers-color-scheme: dark)" />
+    <link href="Assets/Dompo$Putih.png" rel="icon" media="(prefers-color-scheme: dark)" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body {
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            background-color: #f8f9fa;
-        }
+    body {
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        background-color: #f8f9fa;
+    }
 
-        .sidebar {
-            width: 200px;
-            background-color: #212529;
-            color: white;
-            position: fixed;
-            height: 100vh;
-            padding: 1rem;
-        }
+    .sidebar {
+        width: 200px;
+        background-color: #212529;
+        color: white;
+        position: fixed;
+        height: 100vh;
+        padding: 1rem;
+    }
 
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 15px 20px;
-            display: block;
-            margin: 5px 0;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: block;
+        margin: 5px 0;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
 
-        .sidebar a:hover {
-            background-color: #343a40;
-        }
+    .sidebar a:hover {
+        background-color: #343a40;
+    }
 
-        .logo-text {
-            font-family: 'Georgia', serif;
-            font-size: 20px;
-            color: white;
-        }
+    .logo-text {
+        font-family: 'Georgia', serif;
+        font-size: 20px;
+        color: white;
+    }
 
-        .main-content {
-            margin-left: 200px;
-            padding: 20px;
-            flex: 1;
-        }
+    .main-content {
+        margin-left: 200px;
+        padding: 20px;
+        flex: 1;
+    }
 
-        .form-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
+    .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-        table,
-        th,
-        td {
-            border: 1px solid #dee2e6;
-        }
+    table,
+    th,
+    td {
+        border: 1px solid #dee2e6;
+    }
 
-        th {
-            background-color: #212529;
-            color: white;
-            padding: 10px;
-            text-align: left;
-        }
+    th {
+        background-color: #212529;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
 
-        td {
-            padding: 8px;
-        }
+    td {
+        padding: 8px;
+    }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-        .btn {
-            padding: 5px 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-block;
-        }
+    .btn {
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+    }
 
-        .btn-primary {
-            background-color: #0d6efd;
-            color: white;
-            border: none;
-        }
+    .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+    }
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-        }
-        
-        .btn-warning {
-            background-color: #ffc107;
-            color: black;
-            border: none;
-        }
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
 
-        .btn-light {
-            background-color: black !important;
-            color: white !important;
-            border-color: black !important;
-        }
+    .btn-warning {
+        background-color: #ffc107;
+        color: black;
+        border: none;
+    }
 
-        .btn-light:hover {
-            background-color: white !important;
-            color: black !important;
-        }
+    .btn-light {
+        background-color: black !important;
+        color: white !important;
+        border-color: black !important;
+    }
 
-        h3 {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    .btn-light:hover {
+        background-color: white !important;
+        color: black !important;
+    }
 
-        .search-container {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-        }
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
 
-        .search-container input {
-            padding: 8px;
-            width: 300px;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-        }
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+    }
 
-        .search-container button {
-            padding: 8px 15px;
-            background-color: #212529;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    .search-container input {
+        padding: 8px;
+        width: 300px;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #212529;
-            text-decoration: none;
-        }
+    .search-container button {
+        padding: 8px 15px;
+        background-color: #212529;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .alert {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #212529;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
     </style>
 </head>
 
@@ -288,9 +286,9 @@ if (isset($_GET['kode'])) {
 
             <!-- Tampilkan pesan sukses/error -->
             <?php if (isset($_GET['message'])): ?>
-                <div class="alert alert-success">
-                    <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
-                </div>
+            <div class="alert alert-success">
+                <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
+            </div>
             <?php endif; ?>
 
             <div class="form-container">
@@ -299,8 +297,7 @@ if (isset($_GET['kode'])) {
                 </form>
 
                 <form action="SearchingProduct.php" method="POST" class="search-container">
-                    <input type="text" placeholder="Cari Produk" name="caridata"
-                        value="<?php if (isset($_POST['caridata'])) {
+                    <input type="text" placeholder="Cari Produk" name="caridata" value="<?php if (isset($_POST['caridata'])) {
                                     echo htmlspecialchars($_POST['caridata']);
                                 } ?>">
                     <button type="submit">Cari</button>
@@ -354,37 +351,37 @@ if (isset($_GET['kode'])) {
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
-        // Tambahkan token ke URL jika ada di localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('dompos_token');
-            if (token) {
-                // Tambahkan token ke semua form action
-                const forms = document.querySelectorAll('form');
-                forms.forEach(form => {
-                    const url = new URL(form.action, window.location.href);
+    // Tambahkan token ke URL jika ada di localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('dompos_token');
+        if (token) {
+            // Tambahkan token ke semua form action
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const url = new URL(form.action, window.location.href);
+                url.searchParams.set('token', token);
+                form.action = url.toString();
+            });
+
+            // Tambahkan token ke semua link
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                if (link.href.includes('Kasir.php') ||
+                    link.href.includes('produks.php') ||
+                    link.href.includes('KeuanganKasir.php') ||
+                    link.href.includes('Dashboard.php') ||
+                    link.href.includes('InputProduk.php') ||
+                    link.href.includes('editproduk.php')) {
+
+                    const url = new URL(link.href);
                     url.searchParams.set('token', token);
-                    form.action = url.toString();
-                });
-                
-                // Tambahkan token ke semua link
-                const links = document.querySelectorAll('a');
-                links.forEach(link => {
-                    if (link.href.includes('Kasir.php') || 
-                        link.href.includes('produks.php') || 
-                        link.href.includes('KeuanganKasir.php') ||
-                        link.href.includes('Dashboard.php') ||
-                        link.href.includes('InputProduk.php') ||
-                        link.href.includes('editproduk.php')) {
-                        
-                        const url = new URL(link.href);
-                        url.searchParams.set('token', token);
-                        link.href = url.toString();
-                    }
-                });
-            }
-        });
+                    link.href = url.toString();
+                }
+            });
+        }
+    });
     </script>
 </body>
 

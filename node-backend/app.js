@@ -9,16 +9,9 @@ app.set("views", __dirname + "/views");
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 
-// Route untuk halaman utama
+// Route untuk halaman utama - langsung redirect ke login
 app.get("/", (req, res) => {
-  res.redirect("/home");
-});
-
-// Route untuk halaman home (HalamanAwal.php)
-app.get("/home", (req, res) => {
-  res.redirect(
-    "http://localhost/project-web-kasir/php-backend/HalamanAwal.php"
-  );
+  res.redirect("/login");
 });
 
 // Routes untuk autentikasi

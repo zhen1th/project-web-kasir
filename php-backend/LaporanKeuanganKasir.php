@@ -9,118 +9,119 @@
     <link href="Assets/Dompo$Putih.png" rel="icon" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="Assets/DetailLaporan.css">
     <style>
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
 
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 300px;
-            font-weight: bold;
-        }
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        width: 300px;
+        font-weight: bold;
+    }
 
-        .close-btn {
-            background-color: #212529;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
+    .close-btn {
+        background-color: #212529;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
 
-        .close-btn:hover {
-            background-color: #f8f9fa;
-            color: black;
-        }
-        
-        /* Styling untuk tabel */
-        .tabel-laporan {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .tabel-laporan th, .tabel-laporan td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .tabel-laporan th {
-            background-color: #f2f2f2;
-        }
-        
-        .hapus-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .hapus-btn:hover {
-            background-color: #c82333;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: #007bff;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        /* Topbar Styles */
-        .topbar {
-            height: 50px;
-            background-color: #212529;
-            color: white;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
+    .close-btn:hover {
+        background-color: #f8f9fa;
+        color: black;
+    }
 
-        .logo-text {
-            font-family: 'Georgia', serif;
-            font-size: 20px;
-            color: white;
-        }
-        
-        .btn-light {
-            background-color: #f8f9fa;
-            color: #212529;
-            border: 1px solid #dee2e6;
-        }
+    /* Styling untuk tabel */
+    .tabel-laporan {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-        .btn-light:hover {
-            background-color: #e9ecef;
-        }
+    .tabel-laporan th,
+    .tabel-laporan td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .tabel-laporan th {
+        background-color: #f2f2f2;
+    }
+
+    .hapus-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .hapus-btn:hover {
+        background-color: #c82333;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Topbar Styles */
+    .topbar {
+        height: 50px;
+        background-color: #212529;
+        color: white;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .logo-text {
+        font-family: 'Georgia', serif;
+        font-size: 20px;
+        color: white;
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        color: #212529;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-light:hover {
+        background-color: #e9ecef;
+    }
     </style>
 </head>
 
@@ -163,8 +164,8 @@
     }
     // Jika tidak ada session dan tidak ada token
     else {
-        // Redirect ke login
-        header('Location: http://localhost:3000/login?redirect=' . basename($_SERVER['PHP_SELF']));
+        // Redirect ke login dengan parameter redirect ke Dashboard.php
+        header('Location: http://localhost:3000/login?redirect=Dashboard.php');
         exit;
     }
 
@@ -180,7 +181,7 @@
         die("Koneksi database gagal: " . $koneksidata->connect_error);
     }
     ?>
-    
+
     <!-- Topbar -->
 
     <div class="container">
@@ -234,38 +235,38 @@
     </div>
 
     <script>
-        function showModal() {
-            document.getElementById("successModal").style.display = "flex";
-        }
+    function showModal() {
+        document.getElementById("successModal").style.display = "flex";
+    }
 
-        function closeModal() {
-            document.getElementById("successModal").style.display = "none";
-            // Redirect dengan menambahkan token jika ada
-            const token = localStorage.getItem('dompos_token');
-            if (token) {
-                window.location.href = "LaporanKeuanganKasir.php?token=" + token;
-            } else {
-                window.location.href = "LaporanKeuanganKasir.php";
-            }
+    function closeModal() {
+        document.getElementById("successModal").style.display = "none";
+        // Redirect dengan menambahkan token jika ada
+        const token = localStorage.getItem('dompos_token');
+        if (token) {
+            window.location.href = "LaporanKeuanganKasir.php?token=" + token;
+        } else {
+            window.location.href = "LaporanKeuanganKasir.php";
         }
-        
-        // Tambahkan token ke URL jika ada di localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('dompos_token');
-            if (token) {
-                // Tambahkan token ke link Kembali
-                const backLink = document.querySelector('.back-link');
-                const url = new URL(backLink.href, window.location.href);
-                url.searchParams.set('token', token);
-                backLink.href = url.toString();
-                
-                // Tambahkan token ke tombol Home
-                const homeBtn = document.querySelector('.btn-light');
-                const homeUrl = new URL(homeBtn.href, window.location.href);
-                homeUrl.searchParams.set('token', token);
-                homeBtn.href = homeUrl.toString();
-            }
-        });
+    }
+
+    // Tambahkan token ke URL jika ada di localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('dompos_token');
+        if (token) {
+            // Tambahkan token ke link Kembali
+            const backLink = document.querySelector('.back-link');
+            const url = new URL(backLink.href, window.location.href);
+            url.searchParams.set('token', token);
+            backLink.href = url.toString();
+
+            // Tambahkan token ke tombol Home
+            const homeBtn = document.querySelector('.btn-light');
+            const homeUrl = new URL(homeBtn.href, window.location.href);
+            homeUrl.searchParams.set('token', token);
+            homeBtn.href = homeUrl.toString();
+        }
+    });
     </script>
 
     <?php

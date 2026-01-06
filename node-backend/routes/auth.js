@@ -163,7 +163,7 @@ router.post("/register", (req, res) => {
 
 // GET /login - Render halaman login
 router.get("/login", (req, res) => {
-  const redirect = req.query.redirect || "HalamanAwal.php";
+  const redirect = req.query.redirect || "Dashboard.php"; // Ubah ke Dashboard.php
   const error = req.query.error || null;
   const success = req.query.success || null;
 
@@ -177,7 +177,7 @@ router.get("/login", (req, res) => {
 // POST /login - Proses login
 router.post("/login", (req, res) => {
   const { username, password, redirect } = req.body;
-  const targetRedirect = redirect || "HalamanAwal.php";
+  const targetRedirect = redirect || "Dashboard.php"; // Ubah ke Dashboard.php
 
   if (!loginAttempts[username]) {
     loginAttempts[username] = { count: 0, timeout: null };
@@ -247,8 +247,8 @@ router.post("/login", (req, res) => {
         );
 
         // Redirect ke halaman PHP dengan token
-        res.redirect(
-          `http://localhost/project-web-kasir/php-backend/${targetRedirect}?token=${token}`
+         res.redirect(
+    `http://localhost/project-web-kasir/php-backend/Dashboard.php?token=${token}`
         );
       });
     }
