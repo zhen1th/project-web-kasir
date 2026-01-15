@@ -54,13 +54,34 @@ if ($koneksiDatabase->connect_error) {
 }
 
 // Ambil data dari request
-$data = json_decode(file_get_contents('php://input'), true);
+
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+if (!$data) {
+    die("DATA JSON KOSONG");
+}
+
+$kode = $data['Kode_Pemasukkan'];
 $total = $data['total'];
 
-// Simpan data pemasukkan ke database
-$query = "INSERT INTO pemasukkan (user_id, HIstori, Nominal) VALUES (?, NOW(), ?)";
-$stmt = $koneksiDatabase->prepare($query);
-$stmt->bind_param("ii", $user_id, $total);
+
+$sql = "INSERT INTO pemasukkan 
+(Kode_Pemasukkan, user_id, Nominal) 
+VALUES (?, ?, ?)";
+
+
+$stmt = $koneksiDatabase->prepare($sql);
+$stmt->bind_param("sid", $kode, $user_id, $total);
+
+if (!$stmt->execute()) {
+    die($stmt->error);
+}
+echo "OK";
+
+if (!$kode) {
+    die("Kode transaksi kosong!");
+}
 
 if ($stmt->execute()) {
     echo "Pembayaran berhasil dicatat!";
