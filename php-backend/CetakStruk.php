@@ -4,6 +4,7 @@ date_default_timezone_set('Asia/Jakarta');
 
 // Ambil data dari POST
 $data_json = $_POST['data_struk'] ?? '[]';
+$KodeTransaksi = $_POST['Kode_Pemasukkan'] ?? '-';
 $UangBayar = isset($_POST['UangBayar']) ? (int) str_replace('.', '', $_POST['UangBayar']) : 0;
 $kembalian = isset($_POST['kembalian']) ? (int) str_replace('.', '', $_POST['kembalian']) : 0;
 $data_struk = json_decode($data_json, true);
@@ -18,6 +19,7 @@ $pdf->SetFont('Courier', '', 8);
 // Header toko
 $pdf->Cell(0, 4, 'Dompo$', 0, 1, 'C');
 $pdf->Cell(0, 4, 'Program Kasir Toko Anda', 0, 1, 'C');
+$pdf->Cell(0,4 , $KodeTransaksi , 0 , 1 , 'C');
 $pdf->Ln(1);
 $pdf->Cell(0, 4, '------------------------------', 0, 1, 'C');
 $pdf->Ln(1);
