@@ -6,7 +6,6 @@ const authRoutes = require("./routes/auth");
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 
 // Route untuk halaman utama - langsung redirect ke login
