@@ -1,4 +1,7 @@
 <?php
+
+use Dom\Mysql;
+
 session_start();
 
 // Periksa apakah sudah ada session yang valid
@@ -52,6 +55,42 @@ $koneksiDatabase = new mysqli($host, $user, $password, $dbname);
 if ($koneksiDatabase->connect_error) {
     die("Koneksi database gagal: " . $koneksiDatabase->connect_error);
 }
+
+// Kode Transaksi Otomatis
+// Menyeleksi Kolom Kode_Pemasukkan Dari Tabel pemasukkan Dimana user_id Diambil Dari Session
+    $AmbilKode = mysqli_query(
+        $koneksiDatabase,
+        "SELECT Kode_Pemasukkan 
+        FROM pemasukkan 
+        WHERE user_id = '{$_SESSION['user_id']}'
+        ORDER BY Kode_Pemasukkan DESC 
+        LIMIT 1"
+    );
+
+        $User  = str_pad($_SESSION['user_id'], 3, '0', STR_PAD_LEFT);
+        $Tahun = date('y');
+        $Bulan = date('m');
+
+        $Data     = mysqli_fetch_assoc($AmbilKode);
+        $LastCode = $Data['Kode_Pemasukkan'] ?? null;
+
+        if ($LastCode) {
+            $DbYear  = substr($LastCode, 4, 2);
+            $DbMonth = substr($LastCode, 6, 2);
+            $OldCode = substr($LastCode, 8, 3);
+
+            if ($Tahun == $DbYear && $Bulan == $DbMonth) {
+                $NewCode = str_pad((int)$OldCode + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                $NewCode = "001";
+            }
+        } else {
+            $NewCode = "001";
+        }
+
+        $kodeTransaksi = "D" . $User . $Tahun . $Bulan . $NewCode;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -91,6 +130,17 @@ if ($koneksiDatabase->connect_error) {
             border-bottom-right-radius: 20px;
         }
 
+        .topbar a {
+            width: 10px;
+        }
+
+        .topbar img {
+            width: 140px;
+            height: 40px;
+            margin-left: 1090px;
+        }
+
+
         .container-full {
             height: calc(100vh - 50px);
             display: flex;
@@ -124,6 +174,11 @@ if ($koneksiDatabase->connect_error) {
             border-top: 1px solid #dee2e6;
         }
 
+        .kiri h5 {
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
         .kanan {
             flex: 2;
             background-color: #005246;
@@ -136,13 +191,13 @@ if ($koneksiDatabase->connect_error) {
             overflow: hidden;
         }
 
-        .kanan button{
+        .kanan button {
             background-color: #F37721;
             color: #ffffffff;
             border: none;
         }
 
-        .kanan button:hover{
+        .kanan button:hover {
             background-color: #de5d01ff;
             color: #ffffffff;
             border: none;
@@ -165,7 +220,7 @@ if ($koneksiDatabase->connect_error) {
             align-content: start;
         }
 
-         .product-grid button{
+        .product-grid button {
             width: 180px;
             font-size: 15px;
             background-color: #ffffffff;
@@ -173,7 +228,7 @@ if ($koneksiDatabase->connect_error) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .product-grid button:hover{
+        .product-grid button:hover {
             background-color: #ffffffff;
             color: black;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -205,9 +260,9 @@ if ($koneksiDatabase->connect_error) {
         }
 
         .tab-btn.active {
-            background-color: #4e5d6c;
+            background-color: #d15700;
             color: white;
-            border-color: #4e5d6c;
+            border-color: #F37721;
         }
 
         .struk-list {
@@ -466,21 +521,20 @@ if ($koneksiDatabase->connect_error) {
             background: #55a630;
         }
 
-        img {
-            width: 140px;
-            height: 40px;
-            margin-left: 1090px;
+        .Transaksi label {
+            font-weight: 500;
         }
 
-       
-
+        .Transaksi input {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
 <body>
     <!-- TOPBAR -->
     <div class="topbar">
-
         <a href="Dashboard.php" id="home-btn"><img src="assets/image/Logo Dompos Navbar Orange.png"></a>
     </div>
 
@@ -489,18 +543,15 @@ if ($koneksiDatabase->connect_error) {
         <!-- KIRI - Bagian Transaksi -->
         <div class="kiri">
             <div class="konten-kiri">
-                <!-- Pencarian Produk -->
-                <form method="POST" class="mb-3 d-flex">
-                    <input type="text" class="form-control me-2" placeholder="Cari Produk..." name="cariproduk" value="<?php if (isset($_POST['cariproduk'])) {
-                    echo htmlspecialchars($_POST['cariproduk']);
-                    } ?>" />
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-search"></i> Cari
-                    </button>
-                </form>
+
+                <!-- Kode Transaksi Read Only -->
+                <div class="Transaksi">
+                    <label>Kode Transaksi</label> <br>
+                    <input type="text" name="Kode_Pemasukkan" class="form-control" value="<?php echo $kodeTransaksi ?>" readonly>
+                </div>
 
                 <!-- Daftar Belanja -->
-                <h5 class="mb-3">Daftar Belanja</h5>
+                <h5 class="mb-3">DETAIL PESANAN</h5>
                 <div id="struk-list" class="struk-list"></div>
 
                 <!-- Total Pembayaran -->
@@ -597,6 +648,15 @@ if ($koneksiDatabase->connect_error) {
 
         <!-- KANAN - Daftar Produk -->
         <div class="kanan">
+            <!-- Pencarian Produk -->
+            <form method="POST" class="mb-3 d-flex">
+                <input type="text" class="form-control me-2" placeholder="Cari Produk..." name="cariproduk" value="<?php if (isset($_POST['cariproduk'])) {
+                echo htmlspecialchars($_POST['cariproduk']);
+                } ?>" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Cari
+                </button>
+            </form>
             <!-- Kategori Produk -->
             <div class="kategori-container">
                 <h5 class="text-white mb-3">Kategori Produk</h5>
@@ -669,6 +729,7 @@ if ($koneksiDatabase->connect_error) {
 
     <!-- Hidden form for printing receipt -->
     <form id="formCetak" action="CetakStruk.php" method="POST" target="_blank">
+        <input type="hidden" name="Kode_Pemasukkan" value="<?php echo $kodeTransaksi ?>">
         <input type="hidden" name="data_struk" id="data_struk">
         <input type="hidden" name="UangBayar" id="UangBayarHidden">
         <input type="hidden" name="kembalian" id="kembalianHidden">
@@ -903,26 +964,37 @@ if ($koneksiDatabase->connect_error) {
             document.getElementById('UangBayarHidden').value = uangBayarValue;
             document.getElementById('kembalianHidden').value = kembalianValue.replace(/\D/g, '');
 
+            const kodetransaksi = document.querySelector('input[name="Kode_Pemasukkan"]').value;
+
             const transaksiData = {
                 total: totalHarga
             };
 
             fetch("ProsesBayar.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(transaksiData)
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    Kode_Pemasukkan: "<?= $kodeTransaksi ?>",
+                    total: totalHarga
                 })
-                .then(response => response.text())
+            })
+
+               .then(response => response.text())
                 .then(result => {
-                    showAlert(result); // Gantikan alert() dengan pop-up
+                    let [status, nextKode] = result.split("|");
+
+                    showAlert(status); // tetap pakai popup kamu
+
+                    if (status === "OK" && nextKode) {
+                        document.querySelector('input[name="Kode_Pemasukkan"]').value = nextKode;
+                    }
 
                     const strukData = localStorage.getItem('strukData');
                     if (!strukData) {
                         showAlert("Struk tidak tersedia!");
                         return;
                     }
+
 
                     try {
                         const parsed = JSON.parse(strukData);
@@ -1000,3 +1072,11 @@ if ($koneksiDatabase->connect_error) {
 </body>
 
 </html>
+
+<?php
+
+$page = $_SERVER['PHP_SELF'];
+ $sec = "0";
+ header("Refresh: $sec; url=$page");
+
+?>
