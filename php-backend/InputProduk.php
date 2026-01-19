@@ -4,7 +4,7 @@ session_start();
 // Periksa apakah sudah ada session yang valid
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $user_id = $_SESSION['user_id'];
-} 
+}
 // Jika ada token di URL (saat pertama kali login)
 else if (!empty($_GET['token'])) {
     $token = $_GET['token'];
@@ -31,7 +31,7 @@ else if (!empty($_GET['token'])) {
     $_SESSION['username'] = $result['username'];
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['login_time'] = time();
-    
+
     $user_id = $_SESSION['user_id'];
 }
 // Jika tidak ada session dan tidak ada token
@@ -85,22 +85,23 @@ if (isset($_POST['Tambahkan_Produk'])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #ffe8d1;
             margin: 20px;
         }
 
         .container {
-            background-color: #212529;
+            background-color: #005246;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             margin: auto;
+            margin-top: 20vh;
             text-align: center;
         }
 
         h3 {
-            color: #f8f9fa;
+            color: #f37721;
         }
 
         input,
@@ -125,7 +126,7 @@ if (isset($_POST['Tambahkan_Produk'])) {
         }
 
         button:hover {
-            background-color: #212529;
+            background-color: #f37721;
             color: white;
         }
 
@@ -163,7 +164,7 @@ if (isset($_POST['Tambahkan_Produk'])) {
             background-color: #f8f9fa;
             color: black;
         }
-        
+
         .back-btn {
             display: inline-block;
             margin-top: 15px;
@@ -173,10 +174,76 @@ if (isset($_POST['Tambahkan_Produk'])) {
             border-radius: 4px;
             background-color: #495057;
         }
-        
+
         .back-btn:hover {
             background-color: #6c757d;
         }
+
+        .tampilan-1 {
+            background-color: #f37721;
+            border-radius: 8px;
+            box-shadow: 0 0 8px orange, 0 0 8px orange inset;
+            height: 55vh;
+            width: 55vh;
+            position: absolute;
+            top: 39%;
+            left: 70%;
+            translate: -50% -50%;
+            z-index: -1;
+            animation: 25s tampilan-1 linear infinite;
+        }
+
+        @keyframes tampilan-1 {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+
+            33% {
+                transform: rotateX(0) rotateY(0) rotateZ(90deg);
+            }
+
+            67% {
+                transform: rotateX(0) rotateY(0) rotateZ(180deg);
+            }
+
+            100% {
+                transform: rotateX(0) rotateY(0) rotateZ(270deg);
+            }
+        }
+
+        .tampilan-2 {
+            background-color: #005246;
+            border-radius: 8px;
+            box-shadow: 0 0 8px lightgreen, 0 0 8px lightgreen inset;
+            height: 45vh;
+            width: 45vh;
+            position: absolute;
+            top: 68%;
+            left: 28%;
+            translate: -50% -50%;
+            z-index: -1;
+            animation: 25s tampilan-2 linear infinite;
+        }
+
+        @keyframes tampilan-2 {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(270deg);
+            }
+
+            33% {
+                transform: rotateX(0) rotateY(0) rotateZ(180deg);
+            }
+
+            67% {
+                transform: rotateX(0) rotateY(0) rotateZ(90deg);
+            }
+
+            100% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+        }
+        
+
     </style>
 </head>
 
@@ -196,7 +263,7 @@ if (isset($_POST['Tambahkan_Produk'])) {
             </select>
             <button type="submit" name="Tambahkan_Produk">Tambahkan Produk</button>
         </form>
-        
+
         <a href="produks.php" class="back-btn">Kembali ke Daftar Produk</a>
     </div>
 
@@ -208,6 +275,10 @@ if (isset($_POST['Tambahkan_Produk'])) {
         </div>
     </div>
 
+    <div class="tampilan-1"></div>
+    <div class="tampilan-2"></div>
+    <div class="tampilan-3"></div>
+
     <script>
         function closeModal() {
             document.getElementById("successModal").style.display = "none";
@@ -216,11 +287,11 @@ if (isset($_POST['Tambahkan_Produk'])) {
 
         // Jika dari PHP ingin menampilkan modal:
         <?php if (isset($_GET['sukses']) && $_GET['sukses'] == 1): ?>
-        window.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("successModal").style.display = "flex";
-        });
+            window.addEventListener('DOMContentLoaded', function() {
+                document.getElementById("successModal").style.display = "flex";
+            });
         <?php endif; ?>
-        
+
         // Tambahkan token ke URL jika ada di localStorage
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('dompos_token');
@@ -232,14 +303,14 @@ if (isset($_POST['Tambahkan_Produk'])) {
                     url.searchParams.set('token', token);
                     form.action = url.toString();
                 });
-                
+
                 // Tambahkan token ke semua link
                 const links = document.querySelectorAll('a');
                 links.forEach(link => {
-                    if (link.href.includes('produks.php') || 
-                        link.href.includes('kasir.php') || 
+                    if (link.href.includes('produks.php') ||
+                        link.href.includes('kasir.php') ||
                         link.href.includes('Dashboard.php')) {
-                        
+
                         const url = new URL(link.href);
                         url.searchParams.set('token', token);
                         link.href = url.toString();

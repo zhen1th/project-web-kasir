@@ -127,7 +127,7 @@ if (isset($_GET['kode'])) {
         }
 
         .topbar {
-            height: 100px;
+            height: 70px;
             width: 100%;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
@@ -140,7 +140,6 @@ if (isset($_GET['kode'])) {
             position: relative;
             transition: 0.3s ease;
         }
-
 
         .topbar img {
             width: 140px;
@@ -254,7 +253,7 @@ if (isset($_GET['kode'])) {
 
         .search-container button {
             padding: 8px 15px;
-            background-color: #212529;
+            background-color: #005246;
             color: white;
             border: none;
             border-radius: 4px;
@@ -290,7 +289,7 @@ if (isset($_GET['kode'])) {
             border: 1px solid #f5c6cb;
         }
 
-        input {
+        #toggleSidebar {
             display: none;
         }
 
@@ -314,7 +313,7 @@ if (isset($_GET['kode'])) {
 </head>
 
 <body class="d-flex">
-
+        
     <input type="checkbox" id="toggleSidebar">
 
     <!-- Sidebar -->
