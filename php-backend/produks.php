@@ -4,7 +4,7 @@ session_start();
 // Periksa apakah sudah ada session yang valid
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $user_id = $_SESSION['user_id'];
-} 
+}
 // Jika ada token di URL (saat pertama kali login)
 else if (!empty($_GET['token'])) {
     $token = $_GET['token'];
@@ -31,7 +31,7 @@ else if (!empty($_GET['token'])) {
     $_SESSION['username'] = $result['username'];
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['login_time'] = time();
-    
+
     $user_id = $_SESSION['user_id'];
 }
 // Jika tidak ada session dan tidak ada token
@@ -56,18 +56,18 @@ if ($koneksiDatabase->connect_error) {
 // Proses penghapusan produk
 if (isset($_GET['kode'])) {
     $kode = $_GET['kode'];
-    
+
     // Pastikan produk yang dihapus milik user yang login
     $query = "DELETE FROM newproduct WHERE Id_Produk = ? AND user_id = ?";
     $stmt = $koneksiDatabase->prepare($query);
     $stmt->bind_param("ii", $kode, $user_id);
-    
+
     if ($stmt->execute()) {
         $success_message = "Data Berhasil Terhapus";
     } else {
         $error_message = "Gagal menghapus data: " . $koneksiDatabase->error;
     }
-    
+
     // Redirect untuk menghindari resubmission
     header("Location: produks.php?message=" . urlencode($success_message ?? $error_message));
     exit;
@@ -91,182 +91,234 @@ if (isset($_GET['kode'])) {
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-    body {
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        background-color: #f8f9fa;
-    }
+        body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-color: #ffe8d1;
+        }
 
-    .sidebar {
-        width: 200px;
-        background-color: #212529;
-        color: white;
-        position: fixed;
-        height: 100vh;
-        padding: 1rem;
-    }
+        .sidebar {
+            width: 200px;
+            background-color: #005246;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            left: -200px;
+            top: 0;
+            transition: 0.3s ease;
 
-    .sidebar a {
-        color: white;
-        text-decoration: none;
-        padding: 15px 20px;
-        display: block;
-        margin: 5px 0;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
+        }
 
-    .sidebar a:hover {
-        background-color: #343a40;
-    }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
 
-    .logo-text {
-        font-family: 'Georgia', serif;
-        font-size: 20px;
-        color: white;
-    }
+        .sidebar a:hover {
+            background-color: #F37721;
+        }
 
-    .main-content {
-        margin-left: 200px;
-        padding: 20px;
-        flex: 1;
-    }
+        .topbar {
+            height: 100px;
+            width: 100%;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background-color: #005246;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: 0.3s ease;
+        }
 
-    .form-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
+        .topbar img {
+            width: 140px;
+            height: 40px;
+        }
 
-    table,
-    th,
-    td {
-        border: 1px solid #dee2e6;
-    }
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-size: 20px;
+            color: white;
+        }
 
-    th {
-        background-color: #212529;
-        color: white;
-        padding: 10px;
-        text-align: left;
-    }
+        .flex-grow-1 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-    td {
-        padding: 8px;
-    }
+        .form-container {
+            background-color: #ffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-    .btn {
-        padding: 5px 10px;
-        border-radius: 4px;
-        text-decoration: none;
-        display: inline-block;
-    }
+        table,
+        th,
+        td {
+            border: 1px solid #dee2e6;
+        }
 
-    .btn-primary {
-        background-color: #0d6efd;
-        color: white;
-        border: none;
-    }
+        th {
+            background-color: #212529;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
 
-    .btn-danger {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-    }
+        td {
+            padding: 8px;
+        }
 
-    .btn-warning {
-        background-color: #ffc107;
-        color: black;
-        border: none;
-    }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    .btn-light {
-        background-color: black !important;
-        color: white !important;
-        border-color: black !important;
-    }
+        .btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-    .btn-light:hover {
-        background-color: white !important;
-        color: black !important;
-    }
+        .btn-primary {
+            background-color: #f37721;
+            color: white;
+            border: none;
+        }
 
-    h3 {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
 
-    .search-container {
-        margin-bottom: 20px;
-        display: flex;
-        gap: 10px;
-    }
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+            border: none;
+        }
 
-    .search-container input {
-        padding: 8px;
-        width: 300px;
-        border-radius: 4px;
-        border: 1px solid #ced4da;
-    }
+        .btn-light {
+            background-color: black !important;
+            color: white !important;
+            border-color: black !important;
+        }
 
-    .search-container button {
-        padding: 8px 15px;
-        background-color: #212529;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .btn-light:hover {
+            background-color: white !important;
+            color: black !important;
+        }
 
-    .back-link {
-        display: inline-block;
-        margin-bottom: 20px;
-        color: #212529;
-        text-decoration: none;
-    }
+        h3 {
+            font-family: 'Segoe UI';
+            font-weight: 700;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: #005246;
+        }
 
-    .back-link:hover {
-        text-decoration: underline;
-    }
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
 
-    .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-    }
+        .search-container input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
 
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
+        .search-container button {
+            padding: 8px 15px;
+            background-color: #212529;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        input {
+            display: none;
+        }
+
+        /* transisi dengan id input type checkbox ketika di klik (check) */
+        #toggleSidebar:checked~.sidebar {
+            left: 0;
+        }
+
+        /* Geser konten kalau sidebar buka */
+        #toggleSidebar:checked~.flex-grow-1 {
+            /* memberi jarak ketika sidebar dibuka */
+            margin-left: 230px;
+            transition: 0.3s;
+        }
+
+        .icon {
+            cursor: pointer;
+            color: #F37721;
+        }
     </style>
 </head>
 
-<body>
+<body class="d-flex">
+
+    <input type="checkbox" id="toggleSidebar">
+
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
+    <div class="sidebar d-flex flex-column p-3">
         <a href="Kasir.php"><i class="bi bi-credit-card me-2"></i>KASIR</a>
         <a href="produks.php"><i class="bi bi-box me-2"></i>PRODUK</a>
         <a href="KeuanganKasir.php"><i class="bi bi-cash-coin me-2"></i>KEUANGAN</a>
@@ -274,11 +326,18 @@ if (isset($_GET['kode'])) {
     </div>
 
     <!-- Main content -->
-    <div class="main-content">
+    <div class="flex-grow-1 d-flex flex-column">
         <!-- Topbar -->
-        <div class="topbar d-flex justify-content-between align-items-center mb-4">
-            <div class="logo-text">Dompo$</div>
-            <a href="Dashboard.php" class="btn btn-light btn-sm">Home</a>
+        <div class="topbar d-flex justify-content-between align-items-center">
+
+            <label for="toggleSidebar" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </label>
+            <a href="Dashboard.php" id="home-btn"><img src="assets/image/Logo Dompos Navbar Orange.png"></a>
         </div>
 
         <div class="content">
@@ -286,9 +345,9 @@ if (isset($_GET['kode'])) {
 
             <!-- Tampilkan pesan sukses/error -->
             <?php if (isset($_GET['message'])): ?>
-            <div class="alert alert-success">
-                <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
-            </div>
+                <div class="alert alert-success">
+                    <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
+                </div>
             <?php endif; ?>
 
             <div class="form-container">
@@ -298,8 +357,8 @@ if (isset($_GET['kode'])) {
 
                 <form action="SearchingProduct.php" method="POST" class="search-container">
                     <input type="text" placeholder="Cari Produk" name="caridata" value="<?php if (isset($_POST['caridata'])) {
-                                    echo htmlspecialchars($_POST['caridata']);
-                                } ?>">
+                                                                                            echo htmlspecialchars($_POST['caridata']);
+                                                                                        } ?>">
                     <button type="submit">Cari</button>
                 </form>
             </div>
@@ -338,7 +397,7 @@ if (isset($_GET['kode'])) {
                         </tr>";
                         $No++;
                     }
-                    
+
                     // Jika tidak ada data
                     if ($No == 1) {
                         echo "<tr><td colspan='5' class='text-center'>Tidak ada data produk</td></tr>";
@@ -353,35 +412,35 @@ if (isset($_GET['kode'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-    // Tambahkan token ke URL jika ada di localStorage
-    document.addEventListener('DOMContentLoaded', function() {
-        const token = localStorage.getItem('dompos_token');
-        if (token) {
-            // Tambahkan token ke semua form action
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                const url = new URL(form.action, window.location.href);
-                url.searchParams.set('token', token);
-                form.action = url.toString();
-            });
-
-            // Tambahkan token ke semua link
-            const links = document.querySelectorAll('a');
-            links.forEach(link => {
-                if (link.href.includes('Kasir.php') ||
-                    link.href.includes('produks.php') ||
-                    link.href.includes('KeuanganKasir.php') ||
-                    link.href.includes('Dashboard.php') ||
-                    link.href.includes('InputProduk.php') ||
-                    link.href.includes('editproduk.php')) {
-
-                    const url = new URL(link.href);
+        // Tambahkan token ke URL jika ada di localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('dompos_token');
+            if (token) {
+                // Tambahkan token ke semua form action
+                const forms = document.querySelectorAll('form');
+                forms.forEach(form => {
+                    const url = new URL(form.action, window.location.href);
                     url.searchParams.set('token', token);
-                    link.href = url.toString();
-                }
-            });
-        }
-    });
+                    form.action = url.toString();
+                });
+
+                // Tambahkan token ke semua link
+                const links = document.querySelectorAll('a');
+                links.forEach(link => {
+                    if (link.href.includes('Kasir.php') ||
+                        link.href.includes('produks.php') ||
+                        link.href.includes('KeuanganKasir.php') ||
+                        link.href.includes('Dashboard.php') ||
+                        link.href.includes('InputProduk.php') ||
+                        link.href.includes('editproduk.php')) {
+
+                        const url = new URL(link.href);
+                        url.searchParams.set('token', token);
+                        link.href = url.toString();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
