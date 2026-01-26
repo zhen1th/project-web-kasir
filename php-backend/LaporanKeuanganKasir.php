@@ -9,6 +9,10 @@
     <link href="Assets/Dompo$Putih.png" rel="icon" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="Assets/DetailLaporan.css">
     <style>
+
+    body {
+        background-color: #ffe8d1;
+    }
     /* Modal Styles */
     .modal {
         display: none;
@@ -55,7 +59,7 @@
 
     .tabel-laporan th,
     .tabel-laporan td {
-        border: 1px solid #ddd;
+        border: 1px solid #005246;
         padding: 8px;
         text-align: left;
     }
@@ -81,13 +85,18 @@
         max-width: 1000px;
         margin: 0 auto;
         padding: 20px;
+        background-color: #005246;
+    }
+
+    h3 {
+        color: #f37721;
     }
 
     .back-link {
         display: inline-block;
         margin-bottom: 20px;
         text-decoration: none;
-        color: #007bff;
+        color: #f37721;
     }
 
     .back-link:hover {

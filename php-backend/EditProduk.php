@@ -113,18 +113,19 @@ if (isset($_POST['Simpan'])) {
         }
 
         .container {
-            background-color: #212529;
+            background-color: #005246;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             margin: auto;
+            margin-top: 20vh;
         }
 
         h3 {
             text-align: center;
             margin-bottom: 20px;
-            color: #f8f9fa;
+            color: #f37721;
         }
 
         a {
@@ -138,7 +139,7 @@ if (isset($_POST['Simpan'])) {
         }
 
         a:hover {
-            background-color: #6c757d;
+            background-color: #f37721;
             text-decoration: none;
             color: white;
         }
@@ -152,7 +153,7 @@ if (isset($_POST['Simpan'])) {
             border-radius: 6px;
             box-sizing: border-box;
         }
-
+        
         button {
             width: 100%;
             background-color: #f8f9fa;
@@ -166,7 +167,7 @@ if (isset($_POST['Simpan'])) {
         }
 
         button:hover {
-            background-color: #212529;
+            background-color: #f37721;
             color: white;
         }
 
@@ -204,6 +205,70 @@ if (isset($_POST['Simpan'])) {
             background-color: #f8f9fa;
             color: black;
         }
+
+        .tampilan-1 {
+            background-color: #f37721;
+            border-radius: 8px;
+            box-shadow: 0 0 8px orange, 0 0 8px orange inset;
+            height: 55vh;
+            width: 55vh;
+            position: absolute;
+            top: 39%;
+            left: 70%;
+            translate: -50% -50%;
+            z-index: -1;
+            animation: 25s tampilan-1 linear infinite;
+        }
+
+        @keyframes tampilan-1 {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+
+            33% {
+                transform: rotateX(0) rotateY(0) rotateZ(90deg);
+            }
+
+            67% {
+                transform: rotateX(0) rotateY(0) rotateZ(180deg);
+            }
+
+            100% {
+                transform: rotateX(0) rotateY(0) rotateZ(270deg);
+            }
+        }
+
+        .tampilan-2 {
+            background-color: #005246;
+            border-radius: 8px;
+            box-shadow: 0 0 8px lightgreen, 0 0 8px lightgreen inset;
+            height: 45vh;
+            width: 45vh;
+            position: absolute;
+            top: 68%;
+            left: 28%;
+            translate: -50% -50%;
+            z-index: -1;
+            animation: 25s tampilan-2 linear infinite;
+        }
+
+        @keyframes tampilan-2 {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(270deg);
+            }
+
+            33% {
+                transform: rotateX(0) rotateY(0) rotateZ(180deg);
+            }
+
+            67% {
+                transform: rotateX(0) rotateY(0) rotateZ(90deg);
+            }
+
+            100% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -232,6 +297,9 @@ if (isset($_POST['Simpan'])) {
         <button class="close-btn" onclick="closeModal()">Tutup</button>
     </div>
 </div>
+
+<div class="tampilan-1"></div>
+<div class="tampilan-2"></div>
 
 <script>
     function closeModal() {

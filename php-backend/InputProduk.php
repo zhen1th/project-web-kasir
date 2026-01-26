@@ -176,7 +176,7 @@ if (isset($_POST['Tambahkan_Produk'])) {
         }
 
         .back-btn:hover {
-            background-color: #6c757d;
+            background-color: #f37721;
         }
 
         .tampilan-1 {
@@ -277,7 +277,6 @@ if (isset($_POST['Tambahkan_Produk'])) {
 
     <div class="tampilan-1"></div>
     <div class="tampilan-2"></div>
-    <div class="tampilan-3"></div>
 
     <script>
         function closeModal() {
