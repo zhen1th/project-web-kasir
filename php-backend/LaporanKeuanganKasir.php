@@ -12,9 +12,28 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+<<<<<<< HEAD
         body {
             background-color: #ffe8d1;
         }
+=======
+
+    body {
+        background-color: #ffe8d1;
+    }
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
         .topbar {
             height: 100px;
@@ -62,6 +81,7 @@
             font-weight: bold;
         }
 
+<<<<<<< HEAD
         .close-btn {
             background-color: #212529;
             color: white;
@@ -71,6 +91,14 @@
             border-radius: 6px;
             margin-top: 10px;
         }
+=======
+    .tabel-laporan th,
+    .tabel-laporan td {
+        border: 1px solid #005246;
+        padding: 8px;
+        text-align: left;
+    }
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
         .close-btn:hover {
             background-color: #f8f9fa;
@@ -92,6 +120,7 @@
             text-align: left;
         }
 
+<<<<<<< HEAD
         .tabel-laporan th {
             background-color: #f2f2f2;
         }
@@ -104,6 +133,25 @@
             border-radius: 4px;
             cursor: pointer;
         }
+=======
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #005246;
+    }
+
+    h3 {
+        color: #f37721;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #f37721;
+    }
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
         .hapus-btn:hover {
             background-color: #c82333;

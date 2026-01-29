@@ -99,6 +99,7 @@ if (isset($_GET['kode'])) {
             background-color: #ffe8d1;
         }
 
+<<<<<<< HEAD
         .container {
             max-width: 1380px;
             margin: 0 auto;
@@ -278,6 +279,176 @@ if (isset($_GET['kode'])) {
             text-decoration: none;
         }
 
+=======
+        .sidebar {
+            width: 200px;
+            background-color: #005246;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            left: -200px;
+            top: 0;
+            transition: 0.3s ease;
+
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #F37721;
+        }
+
+        .topbar {
+            height: 70px;
+            width: 100%;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background-color: #005246;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        .topbar img {
+            width: 140px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-size: 20px;
+            color: white;
+        }
+
+        .flex-grow-1 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container {
+            background-color: #ffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #212529;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #f37721;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+            border: none;
+        }
+
+        .btn-light {
+            background-color: black !important;
+            color: white !important;
+            border-color: black !important;
+        }
+
+        .btn-light:hover {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        h3 {
+            font-family: 'Segoe UI';
+            font-weight: 700;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: #005246;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-container input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+
+        .search-container button {
+            padding: 8px 15px;
+            background-color: #005246;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #212529;
+            text-decoration: none;
+        }
+
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         .back-link:hover {
             text-decoration: underline;
         }
@@ -324,7 +495,11 @@ if (isset($_GET['kode'])) {
 </head>
 
 <body class="d-flex">
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
     <input type="checkbox" id="toggleSidebar">
 
     <!-- Sidebar -->
@@ -347,20 +522,43 @@ if (isset($_GET['kode'])) {
                         d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                 </svg>
             </label>
+<<<<<<< HEAD
 
+=======
+            <a href="Dashboard.php" id="home-btn"><img src="assets/image/Logo Dompos Navbar Orange.png"></a>
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         </div>
 
         <div class="content">
             <div class="container">
 
+<<<<<<< HEAD
+=======
+            <!-- Tampilkan pesan sukses/error -->
+            <?php if (isset($_GET['message'])): ?>
+                <div class="alert alert-success">
+                    <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
+                </div>
+            <?php endif; ?>
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
 
+<<<<<<< HEAD
                 <!-- Tampilkan pesan sukses/error -->
                 <?php if (isset($_GET['message'])): ?>
                     <div class="alert alert-success">
                         <?php echo htmlspecialchars(urldecode($_GET['message'])); ?>
                     </div>
                 <?php endif; ?>
+=======
+                <form action="SearchingProduct.php" method="POST" class="search-container">
+                    <input type="text" placeholder="Cari Produk" name="caridata" value="<?php if (isset($_POST['caridata'])) {
+                                                                                            echo htmlspecialchars($_POST['caridata']);
+                                                                                        } ?>">
+                    <button type="submit">Cari</button>
+                </form>
+            </div>
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
                 <div class="form-container">
                     <form action="InputProduk.php" method="get" class="mb-3">
@@ -407,6 +605,7 @@ if (isset($_GET['kode'])) {
                             <a href='?kode=" . $menampilkandata['Id_Produk'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Apakah Anda yakin ingin menghapus produk ini?\")'>Hapus</a>
                           </td>
                         </tr>";
+<<<<<<< HEAD
                             $No++;
                         }
 
@@ -418,6 +617,18 @@ if (isset($_GET['kode'])) {
                     </tbody>
                 </table>
             </div>
+=======
+                        $No++;
+                    }
+
+                    // Jika tidak ada data
+                    if ($No == 1) {
+                        echo "<tr><td colspan='5' class='text-center'>Tidak ada data produk</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         </div>
     </div>
 

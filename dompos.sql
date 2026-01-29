@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
+<<<<<<< HEAD
 -- Generation Time: Jan 15, 2026 at 12:42 PM
+=======
+-- Generation Time: Jan 28, 2026 at 10:38 AM
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -81,7 +85,44 @@ CREATE TABLE `pemasukkan` (
 
 INSERT INTO `pemasukkan` (`Kode_Pemasukkan`, `user_id`, `HIstori`, `Nominal`) VALUES
 ('1', 1, '2025-09-19 15:24:09', 113000),
+<<<<<<< HEAD
 ('D0012601001', 1, '2026-01-15 18:40:32', 46000);
+=======
+('D0012601001', 1, '2026-01-15 18:40:32', 46000),
+('D0012601002', 1, '2026-01-15 19:06:05', 56000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengeluaran`
+--
+
+CREATE TABLE `pengeluaran` (
+  `pengeluaran_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `jenis_pengeluaran` varchar(50) NOT NULL,
+  `nama_barang` varchar(100) NOT NULL,
+  `nominal` int(11) NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  `tanggal_pengeluaran` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengeluaran`
+--
+
+INSERT INTO `pengeluaran` (`pengeluaran_id`, `user_id`, `jenis_pengeluaran`, `nama_barang`, `nominal`, `keterangan`, `tanggal_pengeluaran`) VALUES
+(1, 1, 'Belanja', 'Bahan Baku Ayam', 500000, 'Beli ayam 5 kg untuk stok 1 minggu', '2026-01-10 09:00:00'),
+(2, 1, 'Operasional', 'Listrik Bulanan', 350000, 'Tagihan listrik bulan Januari', '2026-01-05 10:30:00'),
+(3, 1, 'Gaji', 'Gaji Karyawan', 1500000, 'Gaji 2 orang karyawan kasir', '2026-01-01 08:00:00'),
+(4, 1, 'Belanja', 'Minuman Kemasan', 250000, 'Aqua gelas 5 dus, teh botol 2 dus', '2026-01-12 14:15:00'),
+(5, 2, 'Belanja', 'Es Batu', 75000, 'Es batu 10 kg untuk es doger', '2026-01-08 11:45:00'),
+(6, 2, 'Operasional', 'Air PDAM', 120000, 'Tagihan air bulan Januari', '2026-01-03 09:20:00'),
+(7, 1, 'Perbaikan', 'Mesin Kasir', 300000, 'Service mesin kasir rusak', '2026-01-15 13:30:00'),
+(8, 3, 'Belanja', 'Bahan Baku Kue', 600000, 'Tepung 10 kg, gula 5 kg, telur 2 kg', '2026-01-14 10:00:00'),
+(9, 1, 'Transportasi', 'Bensin', 50000, 'Bensin motor untuk delivery', '2026-01-15 16:00:00'),
+(10, 1, 'Lainnya', 'Kebutuhan Toko', 100000, 'Plastik kemasan, tissue, sedotan', '2026-01-13 11:00:00');
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
 -- --------------------------------------------------------
 
@@ -132,6 +173,13 @@ ALTER TABLE `pemasukkan`
   ADD KEY `fk_pemasukkan_user` (`user_id`);
 
 --
+-- Indexes for table `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`pengeluaran_id`),
+  ADD KEY `fk_pengeluaran_user` (`user_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -154,6 +202,15 @@ ALTER TABLE `newproduct`
   MODIFY `Id_Produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+<<<<<<< HEAD
+=======
+-- AUTO_INCREMENT for table `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  MODIFY `pengeluaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+>>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -180,6 +237,12 @@ ALTER TABLE `newproduct`
 --
 ALTER TABLE `pemasukkan`
   ADD CONSTRAINT `fk_pemasukkan_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  ADD CONSTRAINT `fk_pengeluaran_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
