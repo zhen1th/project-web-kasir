@@ -198,7 +198,6 @@ $total_keseluruhan = array_sum($data_piechart);
             transition: 0.3s ease;
         }
 
-<<<<<<< HEAD
 
         .container {
             max-width: 1900px;
@@ -354,89 +353,12 @@ $total_keseluruhan = array_sum($data_piechart);
             color: #6c757d;
         }
 
-=======
-        .topbar img {
-            width: 140px;
-            height: 40px;
-        }
-
-        .topbar a {
-            background-color: #005246;
-        }
-
-        .topbar a:hover {
-            background-color: #005246;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .center-text {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .center-text a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #005246;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .center-text a:hover {
-            background-color: #f37721;
-        }
-
-        h3 {
-            font-weight: bolder;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #f37721;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 400px;
-            margin-bottom: 30px;
-        }
-
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .swiper-button-prev,
-        .swiper-button-next {
-            color: #212529;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-        }
-
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         .no-data i {
             font-size: 3rem;
             margin-bottom: 15px;
             color: #dee2e6;
         }
 
-<<<<<<< HEAD
         .btn {
             background-color: #F37721;
             color: white;
@@ -476,46 +398,18 @@ $total_keseluruhan = array_sum($data_piechart);
         .total-pengeluaran {
             color: #ff0000;
             font-weight: bold;
-=======
-        .btn-light {
-            background-color: #f8f9fa;
-            color: #212529;
-            border: 1px solid #dee2e6;
-        }
-
-        .btn-light:hover {
-            background-color: #e9ecef;
-        }
-
-        label {
-            display: none;
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         }
     </style>
 </head>
 
 <body>
     <!-- Topbar -->
-<<<<<<< HEAD
     <div class="topbar">
         <button type="button" class="btn" onclick="document.location='Dashboard.php'">← Kembali</button>
-=======
-    <div class="topbar d-flex justify-content-between align-items-center">
-
-        <label for="toggleSidebar" class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-                class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-            </svg>
-        </label>
-        <a href="Dashboard.php" id="home-btn"><img src="assets/image/Logo Dompos Navbar Orange.png"></a>
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
     </div>
 
     <div class="container">
 
-<<<<<<< HEAD
 
         <div class="pemasukan">
             <div class="pemasukan-dalam"></div>
@@ -601,25 +495,8 @@ $total_keseluruhan = array_sum($data_piechart);
             <div class="grafik-lingkaran">
                 <canvas id="piechart" width="350" height="350"></canvas>
                 <div id="customTooltip" class="chart-tooltip"></div>
-=======
-        <?php if ($no_data): ?>
-            <div class="no-data">
-                <i class="bi bi-graph-up"></i>
-                <h4>Belum Ada Data Keuangan</h4>
-                <p>Mulai lakukan transaksi untuk melihat grafik keuangan</p>
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
             </div>
-        <?php else: ?>
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <?php for ($i = 0; $i < count($chunks_bulan); $i++): ?>
-                        <div class="swiper-slide">
-                            <canvas id="chart<?= htmlspecialchars($i, ENT_QUOTES, 'UTF-8') ?>"></canvas>
-                        </div>
-                    <?php endfor; ?>
-                </div>
 
-<<<<<<< HEAD
             <!-- Legenda -->
             <div style="margin: top 20px;; max-height:100px; overflow-y:auto;">
                 <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
@@ -641,14 +518,6 @@ $total_keseluruhan = array_sum($data_piechart);
             </div>
         </div>
     </div> <!-- Tutup Div Container -->
-=======
-                <!-- Tombol navigasi Swiper -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-        <?php endif; ?>
-    </div>
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
     <!-- Grafik -->
     <script>
@@ -678,13 +547,8 @@ $total_keseluruhan = array_sum($data_piechart);
                         datasets: [{
                             label: 'Pemasukkan per Bulan',
                             data: chunksNominal[index],
-<<<<<<< HEAD
                             backgroundColor: '#2c2c2c',
                             borderColor: '#2c2c2c',
-=======
-                            backgroundColor: 'rgba(0, 0, 0, 1)',
-                            borderColor: 'rgba(0, 0, 0, 1)',
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
                             borderWidth: 1
                         }]
                     },
@@ -720,16 +584,11 @@ $total_keseluruhan = array_sum($data_piechart);
             const token = localStorage.getItem('dompos_token');
             if (token) {
                 // Tambahkan token ke link Detail Laporan
-<<<<<<< HEAD
                 const detailLink = document.querySelector('.cek-detail a');
-=======
-                const detailLink = document.querySelector('.center-text a');
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
                 const url = new URL(detailLink.href, window.location.href);
                 url.searchParams.set('token', token);
                 detailLink.href = url.toString();
 
-<<<<<<< HEAD
 
             }
         });
@@ -864,14 +723,6 @@ $total_keseluruhan = array_sum($data_piechart);
                     alert(`${label}: Rp ${value.toLocaleString('id-ID')} (${percentage}%)`);
                 }
             });
-=======
-                // Tambahkan token ke tombol Home
-                const homeBtn = document.querySelector('.btn-light');
-                const homeUrl = new URL(homeBtn.href, window.location.href);
-                homeUrl.searchParams.set('token', token);
-                homeBtn.href = homeUrl.toString();
-            }
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         });
     </script>
 

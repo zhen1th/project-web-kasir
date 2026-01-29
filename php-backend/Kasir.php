@@ -137,7 +137,7 @@ if ($koneksiDatabase->connect_error) {
     .topbar img {
         width: 140px;
         height: 40px;
-        margin-left: 1090px;
+        margin-left: 1230px;
     }
 
 
@@ -201,6 +201,7 @@ if ($koneksiDatabase->connect_error) {
         background-color: #de5d01ff;
         color: #ffffffff;
         border: none;
+       
     }
 
     .kategori-container {
@@ -213,7 +214,7 @@ if ($koneksiDatabase->connect_error) {
     .product-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 42px;
+        gap: 58px;
         overflow-y: auto;
         flex: 1;
         padding: 5px;
@@ -545,15 +546,7 @@ if ($koneksiDatabase->connect_error) {
             <div class="konten-kiri">
 
                 <!-- Kode Transaksi Read Only -->
-<<<<<<< HEAD
                 <input type="hidden" name="Kode_Pemasukkan"  value="<?php echo $kodeTransaksi ?>" >
-=======
-                <div class="Transaksi">
-                    <label>Kode Transaksi</label> <br>
-                    <input type="text" name="Kode_Pemasukkan" class="form-control" value="<?php echo $kodeTransaksi ?>"
-                        readonly>
-                </div>
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
 
                 <!-- Daftar Belanja -->
                 <h5 class="mb-3">DETAIL PESANAN</h5>
