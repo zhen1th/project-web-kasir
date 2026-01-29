@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 29, 2025 at 12:27 AM
+-- Generation Time: Jan 15, 2026 at 12:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -69,7 +69,7 @@ INSERT INTO `newproduct` (`Id_Produk`, `user_id`, `Nama_Produk`, `Harga_Produk`,
 --
 
 CREATE TABLE `pemasukkan` (
-  `Kode_Pemasukkan` int(11) NOT NULL,
+  `Kode_Pemasukkan` varchar(15) NOT NULL,
   `user_id` int(11) NOT NULL,
   `HIstori` datetime NOT NULL DEFAULT current_timestamp(),
   `Nominal` int(255) NOT NULL
@@ -80,18 +80,8 @@ CREATE TABLE `pemasukkan` (
 --
 
 INSERT INTO `pemasukkan` (`Kode_Pemasukkan`, `user_id`, `HIstori`, `Nominal`) VALUES
-(1, 1, '2025-09-19 15:24:09', 113000),
-(2, 2, '2025-09-19 15:29:09', 58000),
-(3, 1, '2025-09-19 15:45:06', 163000),
-(4, 1, '2025-09-19 16:07:50', 120000),
-(5, 2, '2025-07-08 16:11:46', 200000),
-(6, 1, '2025-05-14 16:12:46', 130000),
-(7, 1, '2025-07-03 16:13:47', 250000),
-(8, 1, '2025-08-07 16:13:47', 57000),
-(9, 1, '2025-06-04 16:15:12', 470000),
-(10, 1, '2025-02-27 16:15:12', 23000),
-(11, 1, '2025-09-19 19:39:29', 77000),
-(12, 1, '2025-10-16 12:05:23', 77000);
+('1', 1, '2025-09-19 15:24:09', 113000),
+('D0012601001', 1, '2026-01-15 18:40:32', 46000);
 
 -- --------------------------------------------------------
 
@@ -162,12 +152,6 @@ ALTER TABLE `laporan_analitik`
 --
 ALTER TABLE `newproduct`
   MODIFY `Id_Produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `pemasukkan`
---
-ALTER TABLE `pemasukkan`
-  MODIFY `Kode_Pemasukkan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`

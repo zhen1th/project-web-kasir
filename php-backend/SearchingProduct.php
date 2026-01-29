@@ -111,16 +111,20 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            background-color: #f8f9fa;
+            background-color: #ffe8d1;
         }
 
         .sidebar {
             width: 200px;
-            background-color: #212529;
+            background-color: #005246;
             color: white;
+            padding: 1rem;
             position: fixed;
             height: 100vh;
-            padding: 1rem;
+            left: -200px;
+            top: 0;
+            transition: 0.3s ease;
+
         }
 
         .sidebar a {
@@ -134,7 +138,27 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
         }
 
         .sidebar a:hover {
-            background-color: #343a40;
+            background-color: #F37721;
+        }
+
+        .topbar {
+            height: 70px;
+            width: 100%;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background-color: #005246;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        .topbar img {
+            width: 140px;
+            height: 40px;
         }
 
         .logo-text {
@@ -150,7 +174,7 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
         }
 
         .form-container {
-            background-color: white;
+            background-color: #ffff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -221,12 +245,15 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
         }
 
         h3 {
+            font-family: 'Segoe UI';
+            font-weight: 700;
+            text-align: center;
             margin-top: 20px;
             margin-bottom: 20px;
+            color: #005246;
         }
 
         .search-container {
-            margin-bottom: 20px;
             display: flex;
             gap: 10px;
         }
@@ -240,7 +267,7 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
 
         .search-container button {
             padding: 8px 15px;
-            background-color: #212529;
+            background-color: #005246;
             color: white;
             border: none;
             border-radius: 4px;
@@ -275,12 +302,36 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        #toggleSidebar {
+            display: none;
+        }
+
+        /* transisi dengan id input type checkbox ketika di klik (check) */
+        #toggleSidebar:checked~.sidebar {
+            left: 0;
+        }
+
+        /* Geser konten kalau sidebar buka */
+        #toggleSidebar:checked~.flex-grow-1 {
+            /* memberi jarak ketika sidebar dibuka */
+            margin-left: 230px;
+            transition: 0.3s;
+        }
+
+        .icon {
+            cursor: pointer;
+            color: #F37721;
+        }
     </style>
 </head>
 
-<body>
+<body class="d-flex">
+        
+    <input type="checkbox" id="toggleSidebar">
+
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
+    <div class="sidebar d-flex flex-column p-3">
         <a href="Kasir.php"><i class="bi bi-credit-card me-2"></i>KASIR</a>
         <a href="produks.php"><i class="bi bi-box me-2"></i>PRODUK</a>
         <a href="KeuanganKasir.php"><i class="bi bi-cash-coin me-2"></i>KEUANGAN</a>
@@ -288,11 +339,18 @@ $showdata = mysqli_query($koneksiDatabase, $syntaxquery);
     </div>
 
     <!-- Main content -->
-    <div class="main-content">
+    <div class="flex-grow-1 d-flex flex-column">
         <!-- Topbar -->
-        <div class="topbar d-flex justify-content-between align-items-center mb-4">
-            <div class="logo-text">Dompo$</div>
-            <a href="produks.php" class="btn btn-light btn-sm">Kembali</a>
+        <div class="topbar d-flex justify-content-between align-items-center">
+
+            <label for="toggleSidebar" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </label>
+            <a href="Dashboard.php" id="home-btn"><img src="assets/image/Logo Dompos Navbar Orange.png"></a>
         </div>
 
         <!-- Tampilkan pesan sukses/error -->

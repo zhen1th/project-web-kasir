@@ -221,36 +221,40 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode Transaksi</th>
                     <th>Histori</th>
-                    <th>Nominal Pemasukkan</th>
+                    <th>Jenis Pengeluaran</th>
+                    <th>Nama Barang</th>
+                    <th>Keterangan</th>
+                    <th>Nominal Pengeluaran</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $No = 1;
-                // Query data pemasukkan hanya untuk user yang login
-                $Query = mysqli_query($koneksidata, "SELECT * FROM pemasukkan WHERE user_id = $user_id");
+                // Query data pengeluaran hanya untuk user yang login
+                $Query = mysqli_query($koneksidata, "SELECT * FROM pengeluaran WHERE user_id = $user_id");
 
                 if (mysqli_num_rows($Query) > 0) {
                     while ($showdata = mysqli_fetch_array($Query)) {
                         echo "
                         <tr>
                             <td>{$No}</td>
-                            <td>{$showdata['Kode_Pemasukkan']}</td>
-                            <td>{$showdata['HIstori']}</td>
-                            <td>Rp " . number_format($showdata['Nominal'], 0, ',', '.') . "</td>
+                            <td>{$showdata['tanggal_pengeluaran']}</td>
+                            <td>{$showdata['jenis_pengeluaran']}</td>
+                            <td>{$showdata['nama_barang']}</td>
+                            <td>{$showdata['keterangan']}</td>
+                            <td>Rp " . number_format($showdata['nominal'], 0, ',', '.') . "</td>
                             <td>
                                 <form method='POST'>
-                                    <button type='submit' class='hapus-btn' name='hapus' value='{$showdata['Kode_Pemasukkan']}'>Hapus</button>
+                                    <button type='submit' class='hapus-btn' name='hapus' value='{$showdata['pengeluaran_id']}'>Hapus</button>
                                 </form>
                             </td>
                         </tr>";
                         $No++;
                     }
                 } else {
-                    echo "<tr><td colspan='4' style='text-align: center;'>Tidak ada data pemasukkan</td></tr>";
+                    echo "<tr><td colspan='4' style='text-align: center;'>Tidak ada data pengeluaran</td></tr>";
                 }
                 ?>
             </tbody>
@@ -275,9 +279,9 @@
             // Redirect dengan menambahkan token jika ada
             const token = localStorage.getItem('dompos_token');
             if (token) {
-                window.location.href = "LaporanKeuanganKasir.php?token=" + token;
+                window.location.href = "LaporanPengeluaran.php?token=" + token;
             } else {
-                window.location.href = "LaporanKeuanganKasir.php";
+                window.location.href = "LaporanPengeluaran.php";
             }
         }
 
@@ -304,7 +308,7 @@
     // Proses penghapusan data
     if (isset($_POST['hapus'])) {
         $kode = $_POST['hapus'];
-        $deleteQuery = "DELETE FROM pemasukkan WHERE Kode_Pemasukkan = '{$kode}' AND user_id = $user_id";
+        $deleteQuery = "DELETE FROM pengeluaran WHERE pengeluaran_id = '{$kode}' AND user_id = $user_id";
 
         if (mysqli_query($koneksidata, $deleteQuery)) {
             echo "<script>showModal();</script>";
