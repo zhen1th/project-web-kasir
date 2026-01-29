@@ -137,11 +137,7 @@ if ($koneksiDatabase->connect_error) {
     .topbar img {
         width: 140px;
         height: 40px;
-<<<<<<< HEAD
-        margin-left: 1230px;
-=======
         margin-left: 1090px;
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
     }
 
 
@@ -205,10 +201,6 @@ if ($koneksiDatabase->connect_error) {
         background-color: #de5d01ff;
         color: #ffffffff;
         border: none;
-<<<<<<< HEAD
-       
-=======
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
     }
 
     .kategori-container {
@@ -221,11 +213,7 @@ if ($koneksiDatabase->connect_error) {
     .product-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-<<<<<<< HEAD
-        gap: 58px;
-=======
         gap: 42px;
->>>>>>> f841c42f0e69535f42641e727a9db3ad1d845b04
         overflow-y: auto;
         flex: 1;
         padding: 5px;
