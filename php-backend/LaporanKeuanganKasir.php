@@ -1,3 +1,60 @@
+ <?php
+    session_start();
+
+    // Periksa apakah sudah ada session yang valid
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+        $user_id = $_SESSION['user_id'];
+    }
+    // Jika ada token di URL (saat pertama kali login)
+    else if (!empty($_GET['token'])) {
+        $token = $_GET['token'];
+
+        // Verifikasi token dengan Node.js
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://localhost:3000/verify-token');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['token' => $token]));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $result = json_decode($response, true);
+
+        if (!$result || !$result['valid']) {
+            // Token tidak valid, redirect ke login
+            header('Location: http://localhost:3000/login?redirect=' . basename($_SERVER['PHP_SELF']));
+            exit;
+        }
+
+        // Token valid, simpan informasi user di session
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $result['username'];
+        $_SESSION['user_id'] = $result['user_id'];
+        $_SESSION['login_time'] = time();
+
+        $user_id = $_SESSION['user_id'];
+    }
+    // Jika tidak ada session dan tidak ada token
+    else {
+        // Redirect ke login dengan parameter redirect ke Dashboard.php
+        header('Location: http://localhost:3000/login?redirect=Dashboard.php');
+        exit;
+    }
+
+    // Koneksi database dompos
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $dbname = "dompos";
+
+    $koneksidata = new mysqli($host, $user, $password, $dbname);
+
+    if ($koneksidata->connect_error) {
+        die("Koneksi database gagal: " . $koneksidata->connect_error);
+    }
+    ?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -39,6 +96,29 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .Form {
+            background-color: #ffff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+         .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .search-container input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+
 
         /* Modal Styles */
         .modal {
@@ -155,68 +235,26 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-
-    // Periksa apakah sudah ada session yang valid
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-        $user_id = $_SESSION['user_id'];
-    }
-    // Jika ada token di URL (saat pertama kali login)
-    else if (!empty($_GET['token'])) {
-        $token = $_GET['token'];
-
-        // Verifikasi token dengan Node.js
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://localhost:3000/verify-token');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['token' => $token]));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($response, true);
-
-        if (!$result || !$result['valid']) {
-            // Token tidak valid, redirect ke login
-            header('Location: http://localhost:3000/login?redirect=' . basename($_SERVER['PHP_SELF']));
-            exit;
-        }
-
-        // Token valid, simpan informasi user di session
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $result['username'];
-        $_SESSION['user_id'] = $result['user_id'];
-        $_SESSION['login_time'] = time();
-
-        $user_id = $_SESSION['user_id'];
-    }
-    // Jika tidak ada session dan tidak ada token
-    else {
-        // Redirect ke login dengan parameter redirect ke Dashboard.php
-        header('Location: http://localhost:3000/login?redirect=Dashboard.php');
-        exit;
-    }
-
-    // Koneksi database dompos
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $dbname = "dompos";
-
-    $koneksidata = new mysqli($host, $user, $password, $dbname);
-
-    if ($koneksidata->connect_error) {
-        die("Koneksi database gagal: " . $koneksidata->connect_error);
-    }
-    ?>
+   
 
     <!-- Topbar -->
     <div class="topbar">
         <button type="button" class="btn" onclick="document.location='KeuanganKasir.php'">← Kembali</button>
     </div>
-    <div class="container">
 
+    
+    <div class="container">
+        <div class="Form">
+        <form method="POST" class="search-container">
+            <input type="text" class="form-control me-2" placeholder="Cari Kode Transaksi..." name="carikode" 
+            value="<?php if (isset($_POST['carikode'])) {
+            echo htmlspecialchars($_POST['carikode']);
+            } ?>" />
+            <button type="submit" class="btn">
+                <i class="bi bi-search"></i> Cari
+            </button>
+        </form>
+    </div>
         <table class="tabel-laporan">
             <thead>
                 <tr>
@@ -229,10 +267,23 @@
             </thead>
             <tbody>
                 <?php
-                $No = 1;
-                // Query data pemasukkan hanya untuk user yang login
-                $Query = mysqli_query($koneksidata, "SELECT * FROM pemasukkan WHERE user_id = $user_id");
 
+                function cari($carikode , $user_id , $koneksidata)
+                {
+                    $searchquery = "SELECT * FROM pemasukkan WHERE user_id = $user_id AND Kode_Pemasukkan LIKE '%$carikode%'";
+                    return mysqli_query($koneksidata,$searchquery);
+                }
+
+                if (isset($_POST['carikode'])) {
+                    $searching = $_POST['carikode'];
+                    $Query = cari($searching , $user_id , $koneksidata);
+                }else{
+                    // Query data pemasukkan hanya untuk user yang login
+                    $Query = mysqli_query($koneksidata, "SELECT * FROM pemasukkan WHERE user_id = $user_id");
+                }
+
+               $No = 1;
+        
                 if (mysqli_num_rows($Query) > 0) {
                     while ($showdata = mysqli_fetch_array($Query)) {
                         echo "
@@ -250,7 +301,7 @@
                         $No++;
                     }
                 } else {
-                    echo "<tr><td colspan='4' style='text-align: center;'>Tidak ada data pemasukkan</td></tr>";
+                    echo "<tr><td colspan='6' style='text-align: center;'>Tidak ada data pemasukkan</td></tr>";
                 }
                 ?>
             </tbody>
