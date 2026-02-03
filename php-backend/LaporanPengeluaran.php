@@ -1,161 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Keuangan</title>
-    <link href="Assets/Dompo$Hitam.png" rel="icon" media="(prefers-color-scheme: light)" />
-    <link href="Assets/Dompo$Putih.png" rel="icon" media="(prefers-color-scheme: dark)" />
-    <link rel="stylesheet" href="Assets/DetailLaporan.css">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #ffe8d1;
-        }
-
-        .topbar {
-            height: 100px;
-            width: 100%;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            background-color: #005246;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: 0.3s ease;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 300px;
-            font-weight: bold;
-        }
-
-        .close-btn {
-            background-color: #212529;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-
-        .close-btn:hover {
-            background-color: #f8f9fa;
-            color: black;
-        }
-
-        /* Styling untuk tabel */
-        .tabel-laporan {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: none;
-        }
-
-        .tabel-laporan th,
-        .tabel-laporan td {
-            border: none;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .tabel-laporan th {
-            background-color: #f2f2f2;
-        }
-
-        .hapus-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .hapus-btn:hover {
-            background-color: #c82333;
-        }
-
-
-
-        h3 {
-            color: #f37721;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: #f37721;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .logo-text {
-            font-family: 'Georgia', serif;
-            font-size: 20px;
-            color: white;
-        }
-
-        .btn-light {
-            background-color: #f8f9fa;
-            color: #212529;
-            border: 1px solid #dee2e6;
-        }
-
-        .btn-light:hover {
-            background-color: #e9ecef;
-        }
-
-        .btn {
-            background-color: #F37721;
-            color: white;
-        }
-
-        .btn:hover {
-            background-color: #dd5c00;
-            color: white;
-        }
-    </style>
-</head>
-
-<body>
-    <?php
+ <?php
     session_start();
 
     // Periksa apakah sudah ada session yang valid
@@ -211,33 +54,261 @@
     }
     ?>
 
-    <!-- Topbar -->
-    <div class="topbar">
-        <button type="button" class="btn" onclick="document.location='KeuanganKasir.php'">← Kembali</button>
-    </div>
-    <div class="container">
+ <!DOCTYPE html>
+ <html lang="id">
 
-        <table class="tabel-laporan">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Histori</th>
-                    <th>Jenis Pengeluaran</th>
-                    <th>Nama Barang</th>
-                    <th>Keterangan</th>
-                    <th>Nominal Pengeluaran</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $No = 1;
-                // Query data pengeluaran hanya untuk user yang login
-                $Query = mysqli_query($koneksidata, "SELECT * FROM pengeluaran WHERE user_id = $user_id");
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Laporan Keuangan</title>
+     <link href="Assets/Dompo$Hitam.png" rel="icon" media="(prefers-color-scheme: light)" />
+     <link href="Assets/Dompo$Putih.png" rel="icon" media="(prefers-color-scheme: dark)" />
+     <link rel="stylesheet" href="Assets/DetailLaporan.css">
 
-                if (mysqli_num_rows($Query) > 0) {
-                    while ($showdata = mysqli_fetch_array($Query)) {
-                        echo "
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <style>
+         body {
+             background-color: #ffe8d1;
+         }
+
+         .topbar {
+             height: 100px;
+             width: 100%;
+             border-bottom-left-radius: 20px;
+             border-bottom-right-radius: 20px;
+             background-color: #005246;
+             padding: 0 20px;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+             position: relative;
+             transition: 0.3s ease;
+         }
+
+         .container {
+             max-width: 1400px;
+             margin: 0 auto;
+             background-color: white;
+             padding: 20px;
+             border-radius: 8px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+
+         .Form {
+             background-color: #ffff;
+             padding: 15px;
+             border-radius: 5px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+             margin-bottom: 20px;
+         }
+
+         .search-container {
+             margin-bottom: 10px;
+             margin-top: 5px;
+             display: flex;
+             gap: 10px;
+         }
+
+         .search-container input {
+             padding: 8px;
+             width: 300px;
+             border-radius: 4px;
+             border: 1px solid #ced4da;
+             margin-right: 500px; 
+         }
+         .search-container select {
+             padding: 8px;
+             width: 300px;
+             border-radius: 4px;
+             border: 1px solid #ced4da;
+         }
+
+         /* Modal Styles */
+         .modal {
+             display: none;
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background-color: rgba(0, 0, 0, 0.5);
+             justify-content: center;
+             align-items: center;
+         }
+
+         .modal-content {
+             background-color: white;
+             padding: 20px;
+             border-radius: 8px;
+             text-align: center;
+             width: 300px;
+             font-weight: bold;
+         }
+
+         .close-btn {
+             background-color: #212529;
+             color: white;
+             padding: 10px;
+             border: none;
+             cursor: pointer;
+             border-radius: 6px;
+             margin-top: 10px;
+         }
+
+         .close-btn:hover {
+             background-color: #f8f9fa;
+             color: black;
+         }
+
+         /* Styling untuk tabel */
+         .tabel-laporan {
+             width: 100%;
+             border-collapse: collapse;
+             margin-top: 20px;
+             border: none;
+         }
+
+         .tabel-laporan th,
+         .tabel-laporan td {
+             border: none;
+             padding: 8px;
+             text-align: left;
+         }
+
+         .tabel-laporan th {
+             background-color: #f2f2f2;
+         }
+
+         .hapus-btn {
+             background-color: #dc3545;
+             color: white;
+             border: none;
+             padding: 5px 10px;
+             border-radius: 4px;
+             cursor: pointer;
+         }
+
+         .hapus-btn:hover {
+             background-color: #c82333;
+         }
+
+
+
+         h3 {
+             color: #f37721;
+         }
+
+         .back-link {
+             display: inline-block;
+             margin-bottom: 20px;
+             text-decoration: none;
+             color: #f37721;
+         }
+
+         .back-link:hover {
+             text-decoration: underline;
+         }
+
+         .logo-text {
+             font-family: 'Georgia', serif;
+             font-size: 20px;
+             color: white;
+         }
+
+         .btn-light {
+             background-color: #f8f9fa;
+             color: #212529;
+             border: 1px solid #dee2e6;
+         }
+
+         .btn-light:hover {
+             background-color: #e9ecef;
+         }
+     </style>
+ </head>
+
+ <body>
+     <!-- Topbar -->
+     <div class="topbar">
+         <button type="button" class="btn" style="background-color: #F37721;
+            color: white;" onclick="document.location='KeuanganKasir.php'">← Kembali</button>
+     </div>
+     <div class="container">
+         <div class="Form">
+             <form action="" method="POST" class="search-container">
+                 <div class="row">
+                     <div class="col-md-3">
+                         <input type="date" name="date" value="<?php isset($_POST['date']) == true ? $_POST['date'] : '' ?>" class="form-control" required>
+                     </div>
+                     <div class="col-md-3">
+                         <select name="kategori" class="form-select" required>
+                             <option value="">Jenis Pengeluaran</option>
+                             <option value="Belanja" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Belanja' ? 'selected' : '') : '' ?>>Belanja</option>
+
+                             <option value="Operasional" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Operasional' ? 'selected' : '') : '' ?>>Operasional</option>
+
+                             <option value="Gaji" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Gaji' ? 'selected' : '') : '' ?>>Gaji</option>
+
+                             <option value="Perbaikan" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Perbaikan'  ? 'selected' : '') : '' ?>>Perbaikan</option>
+
+                             <option value="Transportasi" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Transportasi'  ? 'selected' : '') : '' ?>>Transportasi</option>
+
+                             <option value="Lainnya" <?php isset($_POST['kategori']) == true ? ($_POST['kategori'] == 'Lainnya'  ? 'selected' : '') : '' ?>>Lainnya</option>
+                         </select>
+                     </div>
+                     <div class="col-md-4">
+                         <button type="submit" class="btn btn-primary">Filter</button>
+                         <a href="LaporanPengeluaran.php" class="btn btn-danger">Reset</a>
+                     </div>
+                 </div>
+             </form>
+         </div>
+
+
+         <table class="tabel-laporan">
+             <thead>
+                 <tr>
+                     <th>No</th>
+                     <th>Histori</th>
+                     <th>Jenis Pengeluaran</th>
+                     <th>Nama Barang</th>
+                     <th>Keterangan</th>
+                     <th>Nominal Pengeluaran</th>
+                     <th>Aksi</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <?php
+                    function validate($data)
+                    {
+                        $data = trim($data);
+                        $data = stripslashes($data);
+                        $data = htmlspecialchars($data);
+                        return $data;
+                    }
+
+                    if (isset($_POST['date']) && $_POST['date'] != '' && isset($_POST['kategori']) && $_POST['kategori'] != '') {
+                        $date = validate($_POST['date']);
+                        $kategori = validate($_POST['kategori']);
+
+                        $Query = mysqli_query($koneksidata, "SELECT * FROM pengeluaran 
+                                     WHERE user_id = $user_id 
+                                     AND DATE(tanggal_pengeluaran) = '$date' 
+                                     AND jenis_pengeluaran = '$kategori'");
+                    } else {
+                        // Query data pengeluaran hanya untuk user yang login
+                        $Query = mysqli_query($koneksidata, "SELECT * FROM pengeluaran WHERE user_id = $user_id");
+                    }
+
+                    $No = 1;
+
+
+                    if (mysqli_num_rows($Query) > 0) {
+                        while ($showdata = mysqli_fetch_array($Query)) {
+                            echo "
                         <tr>
                             <td>{$No}</td>
                             <td>{$showdata['tanggal_pengeluaran']}</td>
@@ -251,75 +322,75 @@
                                 </form>
                             </td>
                         </tr>";
-                        $No++;
+                            $No++;
+                        }
+                    } else {
+                        echo "<tr><td colspan='9' style='text-align: center;'>Tidak ada data pengeluaran</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='4' style='text-align: center;'>Tidak ada data pengeluaran</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+                    ?>
+             </tbody>
+         </table>
+     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <p>Data Berhasil Dihapus!</p>
-            <button class="close-btn" onclick="closeModal()">Sip!</button>
-        </div>
-    </div>
+     <!-- Modal -->
+     <div class="modal" id="successModal">
+         <div class="modal-content">
+             <p>Data Berhasil Dihapus!</p>
+             <button class="close-btn" onclick="closeModal()">Sip!</button>
+         </div>
+     </div>
 
-    <script>
-        function showModal() {
-            document.getElementById("successModal").style.display = "flex";
-        }
+     <script>
+         function showModal() {
+             document.getElementById("successModal").style.display = "flex";
+         }
 
-        function closeModal() {
-            document.getElementById("successModal").style.display = "none";
-            // Redirect dengan menambahkan token jika ada
-            const token = localStorage.getItem('dompos_token');
-            if (token) {
-                window.location.href = "LaporanPengeluaran.php?token=" + token;
+         function closeModal() {
+             document.getElementById("successModal").style.display = "none";
+             // Redirect dengan menambahkan token jika ada
+             const token = localStorage.getItem('dompos_token');
+             if (token) {
+                 window.location.href = "LaporanPengeluaran.php?token=" + token;
+             } else {
+                 window.location.href = "LaporanPengeluaran.php";
+             }
+         }
+
+         // Tambahkan token ke URL jika ada di localStorage
+         document.addEventListener('DOMContentLoaded', function() {
+             const token = localStorage.getItem('dompos_token');
+             if (token) {
+                 // Tambahkan token ke link Kembali
+                 const backLink = document.querySelector('.back-link');
+                 const url = new URL(backLink.href, window.location.href);
+                 url.searchParams.set('token', token);
+                 backLink.href = url.toString();
+
+                 // Tambahkan token ke tombol Home
+                 const homeBtn = document.querySelector('.btn-light');
+                 const homeUrl = new URL(homeBtn.href, window.location.href);
+                 homeUrl.searchParams.set('token', token);
+                 homeBtn.href = homeUrl.toString();
+             }
+         });
+     </script>
+
+     <?php
+        // Proses penghapusan data
+        if (isset($_POST['hapus'])) {
+            $kode = $_POST['hapus'];
+            $deleteQuery = "DELETE FROM pengeluaran WHERE pengeluaran_id = '{$kode}' AND user_id = $user_id";
+
+            if (mysqli_query($koneksidata, $deleteQuery)) {
+                echo "<script>showModal();</script>";
             } else {
-                window.location.href = "LaporanPengeluaran.php";
+                echo "<script>alert('Error menghapus data: " . mysqli_error($koneksidata) . "');</script>";
             }
         }
 
-        // Tambahkan token ke URL jika ada di localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('dompos_token');
-            if (token) {
-                // Tambahkan token ke link Kembali
-                const backLink = document.querySelector('.back-link');
-                const url = new URL(backLink.href, window.location.href);
-                url.searchParams.set('token', token);
-                backLink.href = url.toString();
+        // Tutup koneksi
+        mysqli_close($koneksidata);
+        ?>
+ </body>
 
-                // Tambahkan token ke tombol Home
-                const homeBtn = document.querySelector('.btn-light');
-                const homeUrl = new URL(homeBtn.href, window.location.href);
-                homeUrl.searchParams.set('token', token);
-                homeBtn.href = homeUrl.toString();
-            }
-        });
-    </script>
-
-    <?php
-    // Proses penghapusan data
-    if (isset($_POST['hapus'])) {
-        $kode = $_POST['hapus'];
-        $deleteQuery = "DELETE FROM pengeluaran WHERE pengeluaran_id = '{$kode}' AND user_id = $user_id";
-
-        if (mysqli_query($koneksidata, $deleteQuery)) {
-            echo "<script>showModal();</script>";
-        } else {
-            echo "<script>alert('Error menghapus data: " . mysqli_error($koneksidata) . "');</script>";
-        }
-    }
-
-    // Tutup koneksi
-    mysqli_close($koneksidata);
-    ?>
-</body>
-
-</html>
+ </html>
